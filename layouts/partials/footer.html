@@ -218,4 +218,13 @@
 {{ end }}
 
 <!--instantclick-->
-<!--script data-no-instant>InstantClick.init();</script-->
+<script data-no-instant>InstantClick.init();</script>
+<script>
+    $('pre code').each(function(i, block) {
+		try{
+			hljs.highlightBlock(block);
+		}catch(e){
+
+		}
+	});
+</script>
