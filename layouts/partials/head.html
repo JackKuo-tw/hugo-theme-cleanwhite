@@ -1,6 +1,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com/" >
+    <link rel="preconnect" href="https://www.google-analytics.com/" >
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- start ogp -->
@@ -43,16 +47,17 @@
     <!-- end ogp -->
 
     <meta name="keyword"  content="{{ .Site.Params.keyword }}">
+
     <link rel="shortcut icon" href="{{ "img/favicon.ico" | relURL }}">
 
     <title>{{ if .Title }}{{ .Title }}-{{ .Site.Params.SEOTitle }}{{ else }}{{ .Site.Params.SEOTitle }}{{ end }}</title>
 
     <link rel="canonical" href="{{ .URL | relURL }}">
 
-    <link rel="stylesheet" href="{{ "css/iDisqus.min.css" | relURL }}"/>
+    <link defer async rel="stylesheet" href="{{ "css/iDisqus.min.css" | relURL }}"/>
 	
     <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="{{ "css/bootstrap.min.css" | relURL }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ "css/hux-blog.min.css" | relURL }}">
@@ -64,20 +69,20 @@
     <link rel="stylesheet" href="{{ "css/zanshang.css" | relURL }}">
 
     <!-- Custom Fonts -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link async defer href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
     <!-- jQuery -->
-    <script src="{{ "js/jquery.min.js" | relURL }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     
     <!-- Bootstrap Core JavaScript -->
-    <script src="{{ "js/bootstrap.min.js" | relURL }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
     
     <!-- Custom Theme JavaScript -->
     <script src="{{ "js/hux-blog.min.js" | relURL }}"></script>
 	
     <!-- Use the monokai color scheme of highlight.js to highlight the code in the page -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/monokai.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <link async rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/monokai.min.css">
+    <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- OpenSearch -->
     <link href='{{ .Site.BaseURL }}opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
