@@ -35,10 +35,41 @@
             </div>
         </div>
     </div>
+    <style>
+        aside {
+          top: 30px;
+          margin-left: 5px;
+          float: left;
+          font-size: 0.8em;
+          font-color: grey;
+          position: sticky;
+          align-self: start;
+          width: 15%;
+        }
+        aside li a{
+            color: grey;
+            overflow:hidden;
+            white-space:nowrap;
+        }
+        aside ul {
+          list-style-type: none;
+         }
+         aside a.active {
+             color: #38849e;
+             font-weight: bold;
+        }
+    </style>
 </header>
 {{ end }}
 
 {{ define "main" }}
+{{ if not (eq (.Param "showtoc") false) }}
+<aside>
+<div class="col-md-12 hidden-sm hidden-xs">
+    {{ .TableOfContents }}
+</div>
+</aside>
+{{ end }}
 <!-- Post Content -->
 <article>
     <div class="container">
@@ -50,12 +81,6 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                {{ if not (eq (.Param "showtoc") false) }}
-                <header>
-                    <h2>TOC</h2>
-                </header>
-                {{.TableOfContents}}
-                {{ end }}
                 <div class="post-preview">
                     <div class="pull-right post-meta">
                         {{ .Date.Format "Monday, January 2, 2006" }}
@@ -126,5 +151,4 @@
         </div>
     </div>
 </article>
-
 {{ end }}

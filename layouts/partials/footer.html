@@ -231,8 +231,36 @@ InstantClick.on('change', function(isInitialLoad) {
 });
 </script>
 
+<script data-no-instant>
+// scroll TOC
+let removeQueue = [];
+let lastActive;
+
+	const observer = new IntersectionObserver(entries => {
+		entries.forEach(entry => {
+			const id = entry.target.getAttribute('id');
+            const a = document.querySelector(`nav li a[href="#${id}"]`)
+            if (a==null) return;
+			if (entry.intersectionRatio > 0) {
+                lastActive = a;
+				a.classList.add('active');
+			} else {
+                removeQueue.push(a);
+			}
+		});
+        removeQueue.forEach(i=>{i.classList.remove('active')});
+        removeQueue = [];
+	});
+
+	// Track all sections that have an `id` applied
+	document.querySelectorAll('h1[id], h2[id], h3[id]').forEach((section) => {
+		observer.observe(section);
+	});
+
+</script>
+
 <!--instantclick-->
-<script data-no-instant>InstantClick.init();</script>
+<!--script data-no-instant>InstantClick.init();</script-->
 <script>
     $('pre code').each(function(i, block) {
 		try{
