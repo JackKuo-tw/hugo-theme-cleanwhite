@@ -218,18 +218,16 @@
 {{ end }}
 
 <!--things to do before instantclick-->
-<script data-no-instant>
+<!--script data-no-instant>
 InstantClick.on('change', function(isInitialLoad) {
   if (isInitialLoad === false) {
-    if (typeof MathJax !== 'undefined') // support MathJax
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
     if (typeof prettyPrint !== 'undefined') // support google code prettify
       prettyPrint();
     if (typeof ga !== 'undefined')  // support google analytics
         ga('send', 'pageview', location.pathname + location.search);
   }
 });
-</script>
+</script-->
 
 <script data-no-instant>
 // scroll TOC
