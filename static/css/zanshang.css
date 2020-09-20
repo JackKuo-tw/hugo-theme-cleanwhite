@@ -190,3 +190,9 @@ button.close {
     padding: 15px 0;
     display: none;
 }
+
+article h1 {
+    border: 0 solid #e6e6e6;
+    padding-bottom: 10px;
+    border-bottom-width: 1px;
+}
