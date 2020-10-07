@@ -2,7 +2,6 @@
 
 body{
 	text-rendering:optimizeLegibility;
-    font-size: 18px;
     color: #000000;
     font-style: normal;
     font-variant-ligatures: normal;
@@ -11,7 +10,7 @@ body{
     font-variant-east-asian: normal;
     font-weight: normal;
     font-stretch: normal;
-    font-size: 18px;
+    font-size: 13pt;
     line-height: 1m;
     display: block;
 }
