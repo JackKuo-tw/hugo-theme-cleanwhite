@@ -19,7 +19,7 @@
  * Courtesy of GitHub.com
  */
 
-.highlight pre, pre, .highlight .hll { background-color: #f8f8f8; border: 1px solid #ccc; border-radius: 3px; padding: 0px; font-size: 0.9em;}
+.highlight pre, pre, .highlight .hll { background-color: #f8f8f8; border: 2px solid #fff; border-radius: 10px; padding: 10; font-size: 0.9em;}
 .highlight .c { color: #999988; font-style: italic; }
 .highlight .err { color: #a61717; background-color: #e3d2d2; }
 .highlight .k { font-weight: bold; }
