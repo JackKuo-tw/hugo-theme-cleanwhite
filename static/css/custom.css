@@ -2710,3 +2710,6 @@ li.pingback:first-child {
   }
 }
 
+.container {
+    width: 1270px; !important
+}
