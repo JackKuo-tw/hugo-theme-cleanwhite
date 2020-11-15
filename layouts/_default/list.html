@@ -12,9 +12,14 @@
             <ul>
             <!-- Ranges through content/posts/*.md -->
             {{ range .Pages }}
-                <li>
-                    <a href="{{.Permalink}}">{{.Date.Format "2006-01-02"}} | {{.Title}}</a>
-                </li>
+            <div class="row">
+                    <div class="col-md-2">
+                        <label>{{.Date.Format "2006-01-02"}}</label>
+                    </div>
+                    <div class="col-md-10">
+                        <a style="color: #0085a1;" href="{{.Permalink}}">{{.Title}}</a>
+                    </div>
+            </div>
             {{ end }}
             </ul>
         </main>
