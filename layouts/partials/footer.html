@@ -158,7 +158,7 @@
 
 
 <!-- jquery.tagcloud.js -->
-<script>
+<!-- script>
     // only load tagcloud.js in tag.html
     if($('#tag_cloud').length !== 0){
         async("/js/jquery.tagcloud.js",function(){
@@ -169,15 +169,15 @@
             $('#tag_cloud a').tagcloud();
         })
     }
-</script>
+</script-->
 
 <!--fastClick.js -->
-<script>
+<!--script>
     async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
         var $nav = document.querySelector("nav");
         if($nav) FastClick.attach($nav);
     })
-</script>
+</script-->
 
 <!-- push page to Baidu -->
 {{ if .Site.Params.ba_track_id }}
