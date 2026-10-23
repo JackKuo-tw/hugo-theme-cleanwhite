@@ -1,4 +1,3 @@
-
 <!-- Sidebar Container -->
 <div class="
     col-lg-3 col-lg-offset-0
@@ -11,7 +10,7 @@
     {{ if .Site.Params.featured_tags }}
     <section>
         <hr class="hidden-sm hidden-xs">
-        <h5>FEATURED TAGS</h5>
+        <h3 class="sidebar-heading">FEATURED TAGS</h3>
         <div class="tags">
             {{ $featured_condition_size := .Site.Params.featured_condition_size }} 
             {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
@@ -28,7 +27,7 @@
     <!-- Short About -->
 	{{ if .Site.Params.about_me }}
     <section class="visible-md visible-lg">
-	<hr><h5><a href="{{ "/top/about" | relLangURL }}">ABOUT ME</a></h5>
+	<hr><h3 class="sidebar-heading"><a href="{{ "/top/about" | relLangURL }}">ABOUT ME</a></h3>
         <div class="short-about">
             {{ with .Site.Params.sidebar_avatar }}
             <a href="{{ "/top/about" | relLangURL }}">
@@ -42,7 +41,7 @@
            <ul class="list-inline"> 
                {{ if .Site.Params.social.rss }}
                <li>
-                   <a href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title | default "" }}" >
+                   <a href="{{ with .OutputFormats.Get "RSS" }}{{ .RelPermalink }}{{ end }}" rel="alternate" type="application/rss+xml" title="{{ .Site.Title | default "" }}" aria-label="RSS">
                        <span class="fa-stack fa-lg">
                            <i class="fa fa-circle fa-stack-2x"></i>
                            <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
@@ -52,7 +51,7 @@
                {{ end }}
                {{ with .Site.Params.social.twitter }}
                <li>
-                   <a href="{{ . }}">
+                   <a href="{{ . }}" aria-label="Twitter">
                        <span class="fa-stack fa-lg">
                            <i class="fa fa-circle fa-stack-2x"></i>
                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -62,17 +61,17 @@
                {{ end }}
                {{ with .Site.Params.social.zhihu }}
                <li>
-                   <a target="_blank" href="{{ . }}">
+                   <a target="_blank" href="{{ . }}" aria-label="知乎">
                        <span class="fa-stack fa-lg">
                            <i class="fa fa-circle fa-stack-2x"></i>
-                           <i class="fa  fa-stack-1x fa-inverse">知</i>
+                           <i class="fa fa-stack-1x fa-inverse">知</i>
                        </span>
                    </a>
                </li>
                {{ end }}
                {{ with .Site.Params.social.weibo }}
                <li>
-                   <a target="_blank" href="{{ . }}">
+                   <a target="_blank" href="{{ . }}" aria-label="微博">
                        <span class="fa-stack fa-lg">
                            <i class="fa fa-circle fa-stack-2x"></i>
                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
@@ -82,7 +81,7 @@
                {{ end }}
                {{ with .Site.Params.social.facebook }}
                <li>
-                   <a target="_blank" href="{{ . }}">
+                   <a target="_blank" href="{{ . }}" aria-label="Facebook">
                        <span class="fa-stack fa-lg">
                            <i class="fa fa-circle fa-stack-2x"></i>
                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
@@ -92,7 +91,7 @@
                {{ end }}
                {{ with .Site.Params.social.wechat }}
                <li>
-                   <a target="_blank" href="{{ . | relURL}}">
+                   <a target="_blank" href="{{ . | relURL}}" aria-label="WeChat">
                        <span class="fa-stack fa-lg">
                            <i class="fa fa-circle fa-stack-2x"></i>
                            <i class="fa fa-wechat fa-stack-1x fa-inverse"></i>
@@ -102,7 +101,7 @@
                {{ end }}
                {{ with .Site.Params.social.github }}
                <li>
-                   <a target="_blank" href="{{ . }}">
+                   <a target="_blank" href="{{ . }}" aria-label="GitHub">
                        <span class="fa-stack fa-lg">
                            <i class="fa fa-circle fa-stack-2x"></i>
                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -112,7 +111,7 @@
                {{ end }}
                {{ with .Site.Params.social.linkedin }}
                <li>
-                   <a target="_blank" href="{{ . }}">
+                   <a target="_blank" href="{{ . }}" aria-label="LinkedIn">
                        <span class="fa-stack fa-lg">
                            <i class="fa fa-circle fa-stack-2x"></i>
                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
@@ -122,7 +121,7 @@
                {{ end }}
                {{ with .Site.Params.social.medium }}
                <li>
-                   <a target="_blank" href="{{ . }}">
+                   <a target="_blank" href="{{ . }}" aria-label="Medium">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-medium fa-stack-1x fa-inverse"></i>
@@ -138,7 +137,7 @@
     {{ if .Site.Params.friends }}
     <section>
         <hr class="hidden-sm hidden-xs">
-        <h5>FRIENDS</h5>
+        <h3 class="sidebar-heading">FRIENDS</h3>
         <ul class="list-inline">
             {{ range .Site.Params.friend_link }}
             <li><a target="_blank" href="{{.href | relLangURL}}" rel="noopener">{{.title}}</a></li>
@@ -151,7 +150,7 @@
     {{ if .Site.Params.bookmarks }}
     <section>
         <hr>
-        <h5>BOOKMARKS</h5>
+        <h3 class="sidebar-heading">BOOKMARKS</h3>
         <ul class="list-inline">
             {{ range .Site.Params.bookmark_link }}
             <li><a target="_blank" href="{{.href | relLangURL}}">{{.title}}</a></li>

@@ -37,30 +37,57 @@
 
     <link rel="canonical" href="{{ .Permalink }}">
 
-    <link rel="stylesheet" href="{{ "css/iDisqus.min.css" | relURL }}"/>
+    {{- with $image -}}
+    <!-- Preload LCP Header Image -->
+    <link rel="preload" as="image" href="{{ . | relURL }}" fetchpriority="high">
+    {{- end -}}
 
-    <!-- Bootstrap Core CSS -->
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
-
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ "css/hux-blog.min.css" | relURL }}">
-
-    <!-- Pygments Github CSS -->
-    <link rel="stylesheet" href="{{ "css/syntax.css" | relURL }}">
-
-    <!-- zangshang CSS -->
-    <link rel="stylesheet" href="{{ "css/zanshang.css" | relURL }}">
-
-    <!-- Custom Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" type="text/css">
-    <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    {{ if and .IsPage (or .Site.Params.disqus_proxy .Site.DisqusShortname) }}
+    <link rel="stylesheet" href="{{ "css/iDisqus.min.css" | relURL }}"/>
+    {{ end }}
 
-    <!-- Custom Theme JavaScript -->
-    <script src="{{ "js/hux-blog.min.js" | relURL }}"></script>
+    {{ if or .IsPage (findRE "<pre" .Content) }}
+    <link rel="stylesheet" href="{{ "css/syntax.css" | relURL }}">
+    {{ end }}
+
+    {{ if .Site.Params.reward }}
+    <link rel="stylesheet" href="{{ "css/zanshang.css" | relURL }}">
+    {{ end }}
+
+    <!-- Critical CSS Overrides for Performance & Accessibility -->
+    <style>
+      @font-face {
+        font-family: 'FontAwesome';
+        font-display: swap;
+      }
+      .post-preview > .post-meta {
+        color: #595959 !important;
+      }
+      .post-content-preview {
+        color: #555555 !important;
+      }
+      .sidebar-heading {
+        font-size: 14px;
+        color: #555 !important;
+        font-weight: 700;
+        margin-top: 20px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+      }
+      .sidebar-heading a {
+        color: #555 !important;
+      }
+    </style>
+
+    <!-- Defer non-critical JavaScript -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script defer src="{{ "js/hux-blog.min.js" | relURL }}"></script>
 
     {{- if or .Params.math (findRE "\\$" .RawContent) -}}
     <!-- MathJax 3 on-demand -->
