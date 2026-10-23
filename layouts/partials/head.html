@@ -2,7 +2,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- preconnect -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com/">
     <link rel="preconnect" href="https://www.googletagmanager.com/">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,15 +36,20 @@
 
     <link rel="canonical" href="{{ .Permalink }}">
 
-    {{- with $image -}}
-    <!-- Preload LCP Header Image -->
+    <!-- Preload LCP Header Images responsively -->
+    {{ if .IsHome }}
+    <link rel="preload" as="image" href="{{ "img/goldcoast_mobile.webp" | relURL }}" media="(max-width: 767px)" fetchpriority="high">
+    <link rel="preload" as="image" href="{{ "img/goldcoast.webp" | relURL }}" media="(min-width: 768px)" fetchpriority="high">
+    {{ else }}
+    {{ with $image }}
     <link rel="preload" as="image" href="{{ . | relURL }}" fetchpriority="high">
-    {{- end -}}
+    {{ end }}
+    {{ end }}
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Self-hosted CSS (Same-origin HTTP/2, zero external DNS/TLS overhead) -->
+    <link rel="stylesheet" href="{{ "css/bootstrap.min.css" | relURL }}">
     <link rel="stylesheet" href="{{ "css/hux-blog.min.css" | relURL }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="{{ "css/font-awesome.min.css" | relURL }}">
 
     {{ if and .IsPage (or .Site.Params.disqus_proxy .Site.DisqusShortname) }}
     <link rel="stylesheet" href="{{ "css/iDisqus.min.css" | relURL }}"/>
@@ -61,9 +65,13 @@
 
     <!-- Critical CSS Overrides for Performance & Accessibility -->
     <style>
-      @font-face {
-        font-family: 'FontAwesome';
-        font-display: swap;
+      .intro-header {
+        background-image: url('{{ "img/goldcoast_mobile.webp" | relURL }}');
+      }
+      @media only screen and (min-width: 768px) {
+        .intro-header {
+          background-image: url('{{ .Site.Params.header_image | relURL }}');
+        }
       }
       .post-preview > .post-meta {
         color: #595959 !important;
@@ -73,20 +81,32 @@
       }
       .sidebar-heading {
         font-size: 14px;
-        color: #555 !important;
+        color: #444 !important;
         font-weight: 700;
         margin-top: 20px;
         margin-bottom: 15px;
         text-transform: uppercase;
       }
       .sidebar-heading a {
-        color: #555 !important;
+        color: #444 !important;
+      }
+      .sidebar-container .tags a {
+        color: #444 !important;
+        border-color: #999 !important;
+      }
+      .sidebar-container .tags a:hover {
+        color: #fff !important;
+        background-color: #0085a1 !important;
+        border-color: #0085a1 !important;
+      }
+      .sidebar-container .short-about p {
+        color: #444 !important;
       }
     </style>
 
-    <!-- Defer non-critical JavaScript -->
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- Self-hosted Deferred JavaScript -->
+    <script defer src="{{ "js/jquery.min.js" | relURL }}"></script>
+    <script defer src="{{ "js/bootstrap.min.js" | relURL }}"></script>
     <script defer src="{{ "js/hux-blog.min.js" | relURL }}"></script>
 
     {{- if or .Params.math (findRE "\\$" .RawContent) -}}
@@ -104,14 +124,18 @@
     {{- end -}}
 
     {{- with .Site.GoogleAnalytics -}}
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+    <!-- Google tag (gtag.js) deferred until window load -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', '{{ . }}');
+      window.addEventListener('load', function() {
+        var s = document.createElement('script');
+        s.src = 'https://www.googletagmanager.com/gtag/js?id={{ . }}';
+        s.async = true;
+        document.head.appendChild(s);
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ . }}');
+      });
     </script>
     {{- end -}}
 
