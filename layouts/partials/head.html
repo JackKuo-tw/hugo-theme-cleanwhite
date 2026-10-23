@@ -2,60 +2,43 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- preconnect -->
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com/" >
-    <link rel="preconnect" href="https://www.google-analytics.com/" >
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com/">
+    <link rel="preconnect" href="https://www.googletagmanager.com/">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    {{- $title := or .Title .Site.Title -}}
+    {{- $desc := or .Description .Summary .Site.Params.description -}}
+    {{- $image := or .Params.header_style_image .Params.image .Params.thumbnail .Site.Params.header_image -}}
+
     <!-- start ogp -->
     <meta property="og:site_name" content="{{ .Site.Title }}">
-    <meta property="og:type" content="article">
-
-    {{ if .Params.thumbnail }}
-    <meta property="og:image" content="{{ .Site.BaseURL }}{{ .Params.thumbnail }}">
-    <meta property="twitter:image" content="{{ .Site.BaseURL }}{{ .Params.thumbnail }}" />
-    {{ else }}
-    <meta property="og:image" content="{{ .Site.BaseURL }}/{{ .Site.Params.header_image }}">
-    <meta property="twitter:image" content="{{ .Site.BaseURL }}/{{ .Site.Params.header_image }}" />
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:title" content="{{ $title }}">
+    {{ with $desc }}
+    <meta name="description" content="{{ . }}">
+    <meta property="og:description" content="{{ . }}">
+    <meta property="twitter:description" content="{{ . }}">
     {{ end }}
-
-    {{ if .Params.title }}
-    <meta name="title" content="{{ .Params.title }}" />
-    <meta property="og:title" content="{{ .Params.title }}" />
-    <meta property="twitter:title" content="{{ .Params.title }}" />
-    {{ else }}
-    <meta name="title" content="{{ .Site.Params.title }}" />
-    <meta property="og:title" content="{{ .Site.Params.title }}" />
-    <meta property="twitter:title" content="{{ .Site.Params.title }}" />
+    {{ with $image }}
+    <meta property="og:image" content="{{ . | absURL }}">
+    <meta property="twitter:image" content="{{ . | absURL }}">
     {{ end }}
-
-    {{ if .Params.description }}
-    <meta name="description" content="{{ .Params.description }}">
-    <meta property="og:description" content="{{ .Params.description }}" />
-    <meta property="twitter:description" content="{{ .Params.description }}" />
-    {{ else }}
-    <meta name="description" content="{{ .Site.Params.description }}">
-    <meta property="og:description" content="{{ .Site.Params.description }}" />
-    <meta property="twitter:description" content="{{ .Site.Params.description }}" />
-    {{ end }}
-
-    {{ if .Params.summary }}
-    <meta property="twitter:card" content="{{ .Params.summary }}" />
-    {{ else }}
-    <meta property="twitter:card" content="summary" />
-    {{ end }}
+    <meta property="twitter:title" content="{{ $title }}">
+    <meta property="twitter:card" content="{{ if or .Params.image .Params.header_style_image }}summary_large_image{{ else }}summary{{ end }}">
     <!-- end ogp -->
 
-    <meta name="keyword"  content="{{ .Site.Params.keyword }}">
+    <meta name="keyword" content="{{ .Site.Params.keyword }}">
 
     <link rel="shortcut icon" href="{{ "img/favicon.ico" | relURL }}">
 
-    <title>{{ if .Title }}{{ .Title }}-{{ .Site.Params.SEOTitle }}{{ else }}{{ .Site.Params.SEOTitle }}{{ end }}</title>
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ with .Site.Params.slogan }} - {{ . }}{{ end }}{{ else }}{{ .Title }} - {{ .Site.Title }}{{ end }}</title>
 
-    <link rel="canonical" href="{{ .Permalink | relURL }}">
+    <link rel="canonical" href="{{ .Permalink }}">
 
-    <link defer async rel="stylesheet" href="{{ "css/iDisqus.min.css" | relURL }}"/>
-	
+    <link rel="stylesheet" href="{{ "css/iDisqus.min.css" | relURL }}"/>
+
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
 
@@ -69,61 +52,40 @@
     <link rel="stylesheet" href="{{ "css/zanshang.css" | relURL }}">
 
     <!-- Custom Fonts -->
-    <link async defer href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" type="text/css">
     <!-- jQuery -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <!-- Bootstrap Core JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
+
     <!-- Custom Theme JavaScript -->
     <script src="{{ "js/hux-blog.min.js" | relURL }}"></script>
-	
-    <!-- Use the monokai color scheme of highlight.js to highlight the code in the page -->
-    <link async rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/atom-one-dark-reasonable.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <!-- OpenSearch -->
-    <link href='{{ .Site.BaseURL }}opensearchdescription.xml' rel='search' title='Content search' type='application/opensearchdescription+xml'/>
-    <!--InstantClick-->
-    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/instantclick/3.1.0/instantclick.min.js" crossorigin="anonymous" data-no-instant></script-->
-    <script type="text/javascript"
-  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    inlineMath: [['$','$'], ['\\(','\\)']],
-    displayMath: [['$$','$$']],
-    processEscapes: true,
-    processEnvironments: true,
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-    TeX: { equationNumbers: { autoNumber: "AMS" },
-         extensions: ["AMSmath.js", "AMSsymbols.js"] }
-  }
-});
-</script>
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Queue(function() {
-    // Fix <code> tags after MathJax finishes running. This is a
-    // hack to overcome a shortcoming of Markdown. Discussion at
-    // https://github.com/mojombo/jekyll/issues/199
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i = 0; i {{ printf "<" | safeHTML }} all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-    }
-});
-</script>
+    {{- if or .Params.math (findRE "\\$" .RawContent) -}}
+    <!-- MathJax 3 on-demand -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$']],
+          processEscapes: true
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+    {{- end -}}
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-NR79MX6L3N"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    {{- with .Site.GoogleAnalytics -}}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ . }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-  gtag('config', 'G-NR79MX6L3N');
-</script>
+      gtag('config', '{{ . }}');
+    </script>
+    {{- end -}}
 
 </head>

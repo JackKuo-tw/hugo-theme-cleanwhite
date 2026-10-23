@@ -213,10 +213,6 @@
 </script>
 {{ end }}
 
-{{ if .Site.GoogleAnalytics }}
-{{ template "_internal/google_analytics_async.html" . }}
-{{ end }}
-
 <!--things to do before instantclick-->
 <!--script data-no-instant>
 InstantClick.on('change', function(isInitialLoad) {
@@ -255,16 +251,4 @@ let lastActive;
 		observer.observe(section);
 	});
 
-</script>
-
-<!--instantclick-->
-<!--script data-no-instant>InstantClick.init();</script-->
-<script>
-    $('pre code').each(function(i, block) {
-		try{
-			hljs.highlightBlock(block);
-		}catch(e){
-
-		}
-	});
 </script>
